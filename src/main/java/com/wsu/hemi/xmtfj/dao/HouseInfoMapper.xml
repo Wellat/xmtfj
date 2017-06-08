@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsu.hemi.xmtfj.dao.HouseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wsu.hemi.xmtfj.spider.HouseInfos" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="on_sell_num" property="onSellNum" jdbcType="INTEGER" />
+    <result column="all_num" property="allNum" jdbcType="INTEGER" />
+    <result column="can_sell_num" property="canSellNum" jdbcType="INTEGER" />
+    <result column="all_area" property="allArea" jdbcType="BIGINT" />
+    <result column="can_sell_area" property="canSellArea" jdbcType="BIGINT" />
+    <result column="is_sell_num" property="isSellNum" jdbcType="INTEGER" />
+    <result column="is_sell_area" property="isSellArea" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, date, on_sell_num, all_num, can_sell_num, all_area, can_sell_area, is_sell_num, 
+    is_sell_area
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wsu.hemi.xmtfj.entity.HouseInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from house_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from house_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from house_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wsu.hemi.xmtfj.entity.HouseInfoExample" >
+    delete from house_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wsu.hemi.xmtfj.spider.HouseInfos" >
+    insert into house_info (id, date, on_sell_num, 
+      all_num, can_sell_num, all_area, 
+      can_sell_area, is_sell_num, is_sell_area
+      )
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{onSellNum,jdbcType=INTEGER}, 
+      #{allNum,jdbcType=INTEGER}, #{canSellNum,jdbcType=INTEGER}, #{allArea,jdbcType=BIGINT}, 
+      #{canSellArea,jdbcType=BIGINT}, #{isSellNum,jdbcType=INTEGER}, #{isSellArea,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsu.hemi.xmtfj.spider.HouseInfos" >
+    insert into house_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="onSellNum != null" >
+        on_sell_num,
+      </if>
+      <if test="allNum != null" >
+        all_num,
+      </if>
+      <if test="canSellNum != null" >
+        can_sell_num,
+      </if>
+      <if test="allArea != null" >
+        all_area,
+      </if>
+      <if test="canSellArea != null" >
+        can_sell_area,
+      </if>
+      <if test="isSellNum != null" >
+        is_sell_num,
+      </if>
+      <if test="isSellArea != null" >
+        is_sell_area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onSellNum != null" >
+        #{onSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="allNum != null" >
+        #{allNum,jdbcType=INTEGER},
+      </if>
+      <if test="canSellNum != null" >
+        #{canSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="allArea != null" >
+        #{allArea,jdbcType=BIGINT},
+      </if>
+      <if test="canSellArea != null" >
+        #{canSellArea,jdbcType=BIGINT},
+      </if>
+      <if test="isSellNum != null" >
+        #{isSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="isSellArea != null" >
+        #{isSellArea,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wsu.hemi.xmtfj.entity.HouseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from house_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update house_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.onSellNum != null" >
+        on_sell_num = #{record.onSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.allNum != null" >
+        all_num = #{record.allNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.canSellNum != null" >
+        can_sell_num = #{record.canSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.allArea != null" >
+        all_area = #{record.allArea,jdbcType=BIGINT},
+      </if>
+      <if test="record.canSellArea != null" >
+        can_sell_area = #{record.canSellArea,jdbcType=BIGINT},
+      </if>
+      <if test="record.isSellNum != null" >
+        is_sell_num = #{record.isSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSellArea != null" >
+        is_sell_area = #{record.isSellArea,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update house_info
+    set id = #{record.id,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      on_sell_num = #{record.onSellNum,jdbcType=INTEGER},
+      all_num = #{record.allNum,jdbcType=INTEGER},
+      can_sell_num = #{record.canSellNum,jdbcType=INTEGER},
+      all_area = #{record.allArea,jdbcType=BIGINT},
+      can_sell_area = #{record.canSellArea,jdbcType=BIGINT},
+      is_sell_num = #{record.isSellNum,jdbcType=INTEGER},
+      is_sell_area = #{record.isSellArea,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsu.hemi.xmtfj.spider.HouseInfos" >
+    update house_info
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="onSellNum != null" >
+        on_sell_num = #{onSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="allNum != null" >
+        all_num = #{allNum,jdbcType=INTEGER},
+      </if>
+      <if test="canSellNum != null" >
+        can_sell_num = #{canSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="allArea != null" >
+        all_area = #{allArea,jdbcType=BIGINT},
+      </if>
+      <if test="canSellArea != null" >
+        can_sell_area = #{canSellArea,jdbcType=BIGINT},
+      </if>
+      <if test="isSellNum != null" >
+        is_sell_num = #{isSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="isSellArea != null" >
+        is_sell_area = #{isSellArea,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsu.hemi.xmtfj.spider.HouseInfos" >
+    update house_info
+    set date = #{date,jdbcType=TIMESTAMP},
+      on_sell_num = #{onSellNum,jdbcType=INTEGER},
+      all_num = #{allNum,jdbcType=INTEGER},
+      can_sell_num = #{canSellNum,jdbcType=INTEGER},
+      all_area = #{allArea,jdbcType=BIGINT},
+      can_sell_area = #{canSellArea,jdbcType=BIGINT},
+      is_sell_num = #{isSellNum,jdbcType=INTEGER},
+      is_sell_area = #{isSellArea,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

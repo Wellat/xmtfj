@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsu.hemi.xmtfj.dao.OldHouseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wsu.hemi.xmtfj.entity.OldHouseInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="house_rate" property="houseRate" jdbcType="REAL" />
+    <result column="sell_num" property="sellNum" jdbcType="INTEGER" />
+    <result column="today_sell_num" property="todaySellNum" jdbcType="INTEGER" />
+    <result column="sell_area" property="sellArea" jdbcType="REAL" />
+    <result column="today_sell_area" property="todaySellArea" jdbcType="REAL" />
+    <result column="date" property="date" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, house_rate, sell_num, today_sell_num, sell_area, today_sell_area, date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from old_house_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from old_house_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from old_house_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfoExample" >
+    delete from old_house_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfo" >
+    insert into old_house_info (id, house_rate, sell_num, 
+      today_sell_num, sell_area, today_sell_area, 
+      date)
+    values (#{id,jdbcType=INTEGER}, #{houseRate,jdbcType=REAL}, #{sellNum,jdbcType=INTEGER}, 
+      #{todaySellNum,jdbcType=INTEGER}, #{sellArea,jdbcType=REAL}, #{todaySellArea,jdbcType=REAL}, 
+      #{date,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfo" >
+    insert into old_house_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="houseRate != null" >
+        house_rate,
+      </if>
+      <if test="sellNum != null" >
+        sell_num,
+      </if>
+      <if test="todaySellNum != null" >
+        today_sell_num,
+      </if>
+      <if test="sellArea != null" >
+        sell_area,
+      </if>
+      <if test="todaySellArea != null" >
+        today_sell_area,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="houseRate != null" >
+        #{houseRate,jdbcType=REAL},
+      </if>
+      <if test="sellNum != null" >
+        #{sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="todaySellNum != null" >
+        #{todaySellNum,jdbcType=INTEGER},
+      </if>
+      <if test="sellArea != null" >
+        #{sellArea,jdbcType=REAL},
+      </if>
+      <if test="todaySellArea != null" >
+        #{todaySellArea,jdbcType=REAL},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfoExample" resultType="java.lang.Integer" >
+    select count(*) from old_house_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update old_house_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseRate != null" >
+        house_rate = #{record.houseRate,jdbcType=REAL},
+      </if>
+      <if test="record.sellNum != null" >
+        sell_num = #{record.sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.todaySellNum != null" >
+        today_sell_num = #{record.todaySellNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellArea != null" >
+        sell_area = #{record.sellArea,jdbcType=REAL},
+      </if>
+      <if test="record.todaySellArea != null" >
+        today_sell_area = #{record.todaySellArea,jdbcType=REAL},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update old_house_info
+    set id = #{record.id,jdbcType=INTEGER},
+      house_rate = #{record.houseRate,jdbcType=REAL},
+      sell_num = #{record.sellNum,jdbcType=INTEGER},
+      today_sell_num = #{record.todaySellNum,jdbcType=INTEGER},
+      sell_area = #{record.sellArea,jdbcType=REAL},
+      today_sell_area = #{record.todaySellArea,jdbcType=REAL},
+      date = #{record.date,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfo" >
+    update old_house_info
+    <set >
+      <if test="houseRate != null" >
+        house_rate = #{houseRate,jdbcType=REAL},
+      </if>
+      <if test="sellNum != null" >
+        sell_num = #{sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="todaySellNum != null" >
+        today_sell_num = #{todaySellNum,jdbcType=INTEGER},
+      </if>
+      <if test="sellArea != null" >
+        sell_area = #{sellArea,jdbcType=REAL},
+      </if>
+      <if test="todaySellArea != null" >
+        today_sell_area = #{todaySellArea,jdbcType=REAL},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsu.hemi.xmtfj.entity.OldHouseInfo" >
+    update old_house_info
+    set house_rate = #{houseRate,jdbcType=REAL},
+      sell_num = #{sellNum,jdbcType=INTEGER},
+      today_sell_num = #{todaySellNum,jdbcType=INTEGER},
+      sell_area = #{sellArea,jdbcType=REAL},
+      today_sell_area = #{todaySellArea,jdbcType=REAL},
+      date = #{date,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
