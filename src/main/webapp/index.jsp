@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8" %>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
@@ -15,8 +15,8 @@
     <meta name="description" content="xmtfj">
     <title>厦门市商品房交易信息</title>
 
-    <link href="<%=ctx%>static/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<%=ctx%>static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/font-awesome.min.css" rel="stylesheet">
+    <link href="static/css/bootstrap.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -24,7 +24,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="<%=ctx%>static/js/echarts.min.js"></script>
+    <script src="static/js/echarts.min.js"></script>
 
 
 </head>
@@ -38,190 +38,60 @@
 </div>
 
 <div class="container">
-
-    <div class="row" style="padding-top: 66px">
-        <div id="main" style="width: 400px; height: 300px"></div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12" style="padding-top: 66px">
+            <div id="xmMap"
+                 style="width:100%;height:600px;border:1px solid #ccc;padding:10px;float:left;overflow:hidden;"></div>
+        </div>
     </div>
-    <div class="row" >
-        <div id="mains" style="width: 800px; height: 600px"></div>
+    <div class="row" style="padding:20px 0px">
+        <div class="col-lg-12 col-md-12">
+            <div id="second"
+                 style="width:100%;height:600px;border:1px solid #ccc;padding:10px;float:left;overflow:hidden;"></div>
+        </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-1">
+
+            <button type="button" class="btn btn-sm btn-success" onclick="refresh(true)">刷 新</button>
+        </div>
+        <!--<div class="col-md-1">-->
+        <!--<span class="text-primary">切换主题</span>-->
+        <!--</div>-->
+        <div class="col-md-3">
+            <select class="form-control" style="float:left" onchange="loadData(value)">
+                <option>厦门市</option>
+                <option>思明区</option>
+                <option>湖里区</option>
+                <option>集美区</option>
+                <option>同安区</option>
+                <option>翔安区</option>
+                <option>海沧区</option>
+            </select>
+        </div>
+        <span id="wrong-message" style="color:red"></span>
+    </div>
+
+    <div class="row" style="padding:20px 0px">
+        <div class="col-lg-12 col-md-12">
+            <div id="third"
+                 style="width:100%;height:600px;border:1px solid #ccc;padding:10px;float:left;overflow:hidden;"></div>
+        </div>
+    </div>
 </div>
+</div>
+<div style="height: 300px"></div>
 
-<script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
-    var myChart2 = echarts.init(document.getElementById('mains'));
-    function randomData() {
-        return Math.round(Math.random()*1000);
-    }
-    // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: 'ECharts 入门示例'
-        },
-        tooltip: {},
-        legend: {
-            data: ['销量']
-        },
-        xAxis: {
-            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-        },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
-    };
-    var option2 = {
-        title: {
-            text: 'iphone销量',
-            subtext: '纯属虚构',
-            left: 'center'
-        },
-        tooltip: {
-            trigger: 'item'
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data:['iphone3','iphone4','iphone5']
-        },
-        visualMap: {
-            min: 0,
-            max: 2500,
-            left: 'left',
-            top: 'bottom',
-            text: ['高','低'],           // 文本，默认为数值文本
-            calculable: true
-        },
-        toolbox: {
-            show: true,
-            orient: 'vertical',
-            left: 'right',
-            top: 'center',
-            feature: {
-                dataView: {readOnly: false},
-                restore: {},
-                saveAsImage: {}
-            }
-        },
-        series: [
-            {
-                name: 'iphone3',
-                type: 'map',
-                mapType: 'china',
-                roam: false,
-                label: {
-                    normal: {
-                        show: true
-                    },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                data:[
-                    {name: '北京',value: randomData() },
-                    {name: '天津',value: randomData() },
-                    {name: '上海',value: randomData() },
-                    {name: '重庆',value: randomData() },
-                    {name: '河北',value: randomData() },
-                    {name: '河南',value: randomData() },
-                    {name: '云南',value: randomData() },
-                    {name: '辽宁',value: randomData() },
-                    {name: '黑龙江',value: randomData() },
-                    {name: '湖南',value: randomData() },
-                    {name: '安徽',value: randomData() },
-                    {name: '山东',value: randomData() },
-                    {name: '新疆',value: randomData() },
-                    {name: '江苏',value: randomData() },
-                    {name: '浙江',value: randomData() },
-                    {name: '江西',value: randomData() },
-                    {name: '湖北',value: randomData() },
-                    {name: '广西',value: randomData() },
-                    {name: '甘肃',value: randomData() },
-                    {name: '山西',value: randomData() },
-                    {name: '内蒙古',value: randomData() },
-                    {name: '陕西',value: randomData() },
-                    {name: '吉林',value: randomData() },
-                    {name: '福建',value: randomData() },
-                    {name: '贵州',value: randomData() },
-                    {name: '广东',value: randomData() },
-                    {name: '青海',value: randomData() },
-                    {name: '西藏',value: randomData() },
-                    {name: '四川',value: randomData() },
-                    {name: '宁夏',value: randomData() },
-                    {name: '海南',value: randomData() },
-                    {name: '台湾',value: randomData() },
-                    {name: '香港',value: randomData() },
-                    {name: '澳门',value: randomData() }
-                ]
-            },
-            {
-                name: 'iphone4',
-                type: 'map',
-                mapType: 'china',
-                label: {
-                    normal: {
-                        show: true
-                    },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                data:[
-                    {name: '北京',value: randomData() },
-                    {name: '天津',value: randomData() },
-                    {name: '上海',value: randomData() },
-                    {name: '重庆',value: randomData() },
-                    {name: '河北',value: randomData() },
-                    {name: '安徽',value: randomData() },
-                    {name: '新疆',value: randomData() },
-                    {name: '浙江',value: randomData() },
-                    {name: '江西',value: randomData() },
-                    {name: '山西',value: randomData() },
-                    {name: '内蒙古',value: randomData() },
-                    {name: '吉林',value: randomData() },
-                    {name: '福建',value: randomData() },
-                    {name: '广东',value: randomData() },
-                    {name: '西藏',value: randomData() },
-                    {name: '四川',value: randomData() },
-                    {name: '宁夏',value: randomData() },
-                    {name: '香港',value: randomData() },
-                    {name: '澳门',value: randomData() }
-                ]
-            },
-            {
-                name: 'iphone5',
-                type: 'map',
-                mapType: 'china',
-                label: {
-                    normal: {
-                        show: true
-                    },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                data:[
-                    {name: '北京',value: randomData() },
-                    {name: '天津',value: randomData() },
-                    {name: '上海',value: randomData() },
-                    {name: '广东',value: randomData() },
-                    {name: '台湾',value: randomData() },
-                    {name: '香港',value: randomData() },
-                    {name: '澳门',value: randomData() }
-                ]
-            }
-        ]
-    };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-    myChart2.setOption(option2);
-</script>
-<script src="<%=ctx%>static/js/bootstrap.min.js"></script>
-<script src="<%=ctx%>static/js/china.json"></script>
+<script src="static/js/jquery-1.9.1.min.js"></script>
+<script src="static/js/xmMapJson.js"></script>
+<script src="static/js/xmMap.js"></script>
+<script src="static/js/second.js"></script>
+<script src="static/js/third_test.js"></script>
+
+
+<script src="static/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -22,6 +22,7 @@ public class SaveOldHouseInfo implements Pipeline<OldHouseInfos> {
 
     @Autowired
     OldHouseInfoMapper oldHouseInfoMapper;
+
     @Override
     public void process(OldHouseInfos oldHouseInfo) {
         List<String> stringList = oldHouseInfo.getStr();

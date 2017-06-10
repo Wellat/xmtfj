@@ -4,7 +4,9 @@ import com.wsu.hemi.xmtfj.entity.HouseInfo;
 import com.wsu.hemi.xmtfj.entity.HouseInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface HouseInfoMapper {
     int countByExample(HouseInfoExample example);
 

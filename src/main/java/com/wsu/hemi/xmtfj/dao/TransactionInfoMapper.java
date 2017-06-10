@@ -4,7 +4,9 @@ import com.wsu.hemi.xmtfj.entity.TransactionInfo;
 import com.wsu.hemi.xmtfj.entity.TransactionInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TransactionInfoMapper {
     int countByExample(TransactionInfoExample example);
 
