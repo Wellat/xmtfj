@@ -5,7 +5,6 @@ import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.request.HttpGetRequest;
 import com.geccocrawler.gecco.spider.HtmlBean;
-import com.sun.tools.corba.se.idl.StringGen;
 
 import java.util.List;
 

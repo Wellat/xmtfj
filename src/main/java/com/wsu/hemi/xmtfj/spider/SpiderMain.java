@@ -21,7 +21,7 @@ public class SpiderMain implements ApplicationContextAware,InitializingBean {
     public void afterPropertiesSet() throws Exception {
         PipelineFactory springPipelineFactory = (PipelineFactory)context.getBean("springPipelineFactory");
 
-        //爬取日交易数据
+        /*//爬取日交易数据
         HttpGetRequest start = new HttpGetRequest("http://cloud.xm.gov.cn:88/xmzf/zf/newspfj.jsp");
         start.setCharset("UTF-8");
         GeccoEngine.create()
@@ -47,7 +47,7 @@ public class SpiderMain implements ApplicationContextAware,InitializingBean {
                 .pipelineFactory(springPipelineFactory)
                 .interval(2000)
                 .start(start3)
-                .run();
+                .run();*/
     }
 
     public void setApplicationContext(ApplicationContext context) throws BeansException {
