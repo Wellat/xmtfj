@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wsu.hemi.xmtfj.dao.HouseInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.wsu.hemi.xmtfj.spider.HouseInfos" >
+  <resultMap id="BaseResultMap" type="com.wsu.hemi.xmtfj.entity.HouseInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="date" property="date" jdbcType="TIMESTAMP" />
     <result column="on_sell_num" property="onSellNum" jdbcType="INTEGER" />

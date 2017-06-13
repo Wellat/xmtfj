@@ -16,4 +16,7 @@ public interface CustomerDao {
     List<Date> getDistinctDateInTran();
 
     List<TransactionInfo> getAllSumInTran();
+
+
+    List<TransactionInfo> getHotSpfBylimit(int limit);
 }

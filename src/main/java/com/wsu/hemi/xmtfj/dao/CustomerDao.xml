@@ -88,4 +88,20 @@
     </select>
 
 
+    <select id="getHotSpfBylimit" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+            a.region,
+            sum(a.sell_sum) as sell_sum,
+            sum(a.sell_area) as sell_area
+        from
+        (
+            SELECT *
+            from transaction_info
+            ORDER BY date DESC
+            LIMIT #{limit,jdbcType=INTEGER}
+        ) a
+        GROUP BY a.region;
+    </select>
+
+
 </mapper>

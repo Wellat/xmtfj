@@ -4,7 +4,7 @@ var option2 = {
     title : {
         text: '厦门市商品房交易信息',
         subtext: '数据来自厦门市国土资源与房产管理局',
-        x: 'center',
+        x: 'left',
         align: 'right'
     },
     grid: {
@@ -22,8 +22,9 @@ var option2 = {
         }
     },
     legend: {
-        data:['住宅套数','总套数','住宅面积','总面积'],
-        x: 'left'
+        data:['住宅套数','总套数','',
+            '住宅面积','总面积'],
+        x: 'right'
     },
     dataZoom: [
         {
@@ -53,21 +54,25 @@ var option2 = {
             axisTick: {show:false},
             axisLabel: {show:false},
             splitArea: {show:false},
-            splitLine: {show:false},
+            splitLine: {show:false}
             //axisLine: {onZero: false}
         }
     ],
     yAxis: [
         {
-            name: '套数(套)',
             type: 'value',
             scale:true,
+            axisLabel : {
+                formatter: '{value} 套'
+            },
             boundaryGap: [0.01, 0.01]
         },
         {
-            name: '面积(M2)',
             type: 'value',
             scale:true,
+            axisLabel : {
+                formatter: '{value}m2'
+            },
             boundaryGap: [0.01, 0.01]
         }
     ],
@@ -109,7 +114,7 @@ var option2 = {
 
 };
 
-function test1(msg) {
+/*function test1(msg) {
     if (msg != '同安区') {
         chart2.setOption({
             xAxis : [
@@ -149,83 +154,44 @@ function test1(msg) {
         });
     }
 
-}
+}*/
 
 function loadData(name) {
-    $.getJSON('/index/spf/'+name, function (data) {
+    $.getJSON('/index/spfa/'+name, function (data) {
         if (data.state) {
             chart2.showLoading({text: '正在努力的读取数据中...'});
-
-            if(name=='厦门市'){
-                chart2.setOption({
-                    xAxis : [
-                        {
-                            data : data.axis
-                        },
-                        {
-                            data : data.axis
-                        }
-                    ],
-                    series: [
-                        {
-                            name:'住宅套数',
-                            data: data.sellSum
-                        },
-                        {
-                            name:'总套数',
-                            data: data.totalSum
-                        },
-                        {
-                            name:'住宅面积',
-                            data: data.sellArea
-                        },
-                        {
-                            name:'总面积',
-                            data: data.totalArea
-                        },{
-                            name: 'GDP占比',
-                            data: [
-                                {name: '第一产业', value: 10},
-                                {name: '第二产业', value: 20},
-                                {name: '第三产业', value: 15}
-                            ]
-                        }
-                    ]
-                });
-            }else{
-                chart2.setOption({
-                    xAxis : [
-                        {
-                            data : data.axis
-                        },
-                        {
-                            data : data.axis
-                        }
-                    ],
-                    series: [
-                        {
-                            name:'住宅套数',
-                            data: data.sellSum
-                        },
-                        {
-                            name:'总套数',
-                            data: data.totalSum
-                        },
-                        {
-                            name:'住宅面积',
-                            data: data.sellArea
-                        },
-                        {
-                            name:'总面积',
-                            data: data.totalArea
-                        },
-                        {
-                            name: '占比',
-                            data: []
-                        }
-                    ]
-                });
-            }
+            chart2.setOption({
+                xAxis : [
+                    {
+                        data : data.axis
+                    },
+                    {
+                        data : data.axis
+                    }
+                ],
+                series: [
+                    {
+                        name:'住宅套数',
+                        data: data.sellSum
+                    },
+                    {
+                        name:'总套数',
+                        data: data.totalSum
+                    },
+                    {
+                        name:'住宅面积',
+                        data: data.sellArea
+                    },
+                    {
+                        name:'总面积',
+                        data: data.totalArea
+                    },
+                    {
+                        name: '占比',
+                        data: []
+                    }
+                ]
+            });
 
             chart2.hideLoading();
         }else {
@@ -237,9 +203,8 @@ function loadData(name) {
 
 //载入图表
 $(function () {
-    chart2 = echarts.init(document.getElementById('second'));
+    chart2 = echarts.init(document.getElementById('chart3_2'));
     chart2.setOption(option2);
-    //test1('厦门市');
     loadData('厦门市');
     window.addEventListener('resize', function () {
         chart2.resize();
