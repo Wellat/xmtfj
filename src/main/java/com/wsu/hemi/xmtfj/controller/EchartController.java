@@ -5,6 +5,7 @@ import com.wsu.hemi.xmtfj.entity.NameValue;
 import com.wsu.hemi.xmtfj.entity.OldHouseInfo;
 import com.wsu.hemi.xmtfj.entity.TransactionInfo;
 import com.wsu.hemi.xmtfj.service.HouseService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,8 @@ import java.util.*;
 @RequestMapping("/index")
 @Controller
 public class EchartController {
+    private static final Logger LOGGER = Logger.getLogger(EchartController.class);
+
     @Autowired
     HouseService houseService;
 
@@ -29,7 +32,6 @@ public class EchartController {
     @RequestMapping(value = "")
     public String index(HttpServletRequest request) {
         HouseInfo houseInfo = houseService.getNewestHouseInfo();
-
         request.setAttribute("houseInfo", houseInfo);
         return "show";
     }
@@ -42,6 +44,7 @@ public class EchartController {
     @ResponseBody
     @RequestMapping(value = "/esf", method = RequestMethod.GET)
     public Map<String, Object> esf() {
+        LOGGER.info("-----------------------esf controller------------------------------");
         Map<String, Object> map = new HashMap<>();
         List<OldHouseInfo> oldHouseInfoList = houseService.getOldHouseInfo();
 
@@ -72,6 +75,7 @@ public class EchartController {
     @ResponseBody
     @RequestMapping(value = "/spfp/{period}", method = RequestMethod.GET)
     public Map<String, Object> spfP(@PathVariable String period) {
+        LOGGER.debug(period);
         Map<String, Object> map = new HashMap<>();
         int selectNum = Integer.valueOf(period) / 10;
         List<TransactionInfo> infoList = houseService.getHotSpfBylimit(selectNum * 6);
@@ -107,8 +111,8 @@ public class EchartController {
     @ResponseBody
     @RequestMapping(value = "/spfa/{area}", method = RequestMethod.GET)
     public Map<String, Object> getSpf(@PathVariable String area) {
+        LOGGER.debug(area);
         Map<String, Object> map = new HashMap<>();
-        System.out.println("-------" + area);
         if (area.isEmpty() || area.equals("")) {
             map.put("state", false);
             map.put("msg", "输入数据为空");

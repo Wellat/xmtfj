@@ -35,7 +35,5 @@
 	<!-- 引入自定义 mapper 文件 -->
 	<!--<mappers>
 		<mapper resource="sqlMapperXml/CategoryTypeMapper.xml"/>
-		<mapper resource="sqlMapperXml/PictureInfoMapper.xml"/>
-		<mapper resource="sqlMapperXml/PictureMapper.xml"/>
 	</mappers>-->
 </configuration>

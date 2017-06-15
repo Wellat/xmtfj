@@ -14,7 +14,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="xmtfj">
-    <title>厦门市商品房交易信息</title>
+    <link rel="shortcut icon" href="<%=ctx%>static/img/estate.png"/>
+    <title>厦门市商品房网签信息</title>
 
     <link href="<%=ctx%>static/css/font-awesome.min.css" rel="stylesheet">
     <link href="<%=ctx%>static/css/bootstrap.css" rel="stylesheet">
@@ -32,7 +33,7 @@
 <body>
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
-        <div class="navbar-header navbar-brand">厦门市商品房交易信息展示</div>
+        <div class="navbar-header navbar-brand">厦门市商品房网签信息展示</div>
         <div class="navbar-collapse collapse" id="nav-wrap" style="height: 1px;"></div>
     </div>
 </div>
@@ -108,7 +109,9 @@
                  style="width:100%;height:450px;border:1px solid #ccc;padding:10px;float:left;overflow:hidden;"></div>
 
             <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px">
-                <span class="btn btn-sm btn-success" style="float:left">选择地区</span>
+                <%--<div class="col-md-1 col-sm-2"></div>--%>
+                    <span class="btn btn-sm btn-success" style="float:left">选择地区</span>
+
                 <div class="col-md-10 col-sm-10">
                     <select class="form-control" style="float:left;width: 220px;" onchange="loadData(value)">
                         <option>厦门市</option>

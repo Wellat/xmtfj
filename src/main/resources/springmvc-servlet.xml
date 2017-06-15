@@ -44,10 +44,7 @@
 	<!-- 带状态的视图控制器标签 -->
 	<mvc:view-controller path="/error/**" status-code="200" />
 
-	<!-- 配置静态资源，直接映射到对应的文件夹，DispatcherServlet 不处理 -->
-	 <!--<mvc:resources mapping="/static/**" location="/static/" /> -->
 	<!-- 配置哪些是静态资源，缺省Servlet 直接返回 -->
-
 	<mvc:resources location="/static/" mapping="/static/**" />
 
 

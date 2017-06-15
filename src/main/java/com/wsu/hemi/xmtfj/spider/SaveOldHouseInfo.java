@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 @Service("saveOldHouseInfo")
 public class SaveOldHouseInfo implements Pipeline<OldHouseInfos> {
-    private static final Logger LOGGER = Logger.getLogger(SaveTransactionInfo.class);
+    private static final Logger LOGGER = Logger.getLogger(SaveOldHouseInfo.class);
 
     @Autowired
     OldHouseInfoMapper oldHouseInfoMapper;
@@ -44,13 +44,11 @@ public class SaveOldHouseInfo implements Pipeline<OldHouseInfos> {
         matcher = pattern.matcher(s[5]);
         if(matcher.find()) info.setTodaySellArea(Float.valueOf(matcher.group()));
 
-        /*Date beginDate = new Date();
-        Calendar date = Calendar.getInstance();
-        date.setTime(beginDate);
-        date.set(Calendar.DATE, date.get(Calendar.DATE) - 1);*/
+
         info.setDate(new Date());
         System.out.println(info.toString());
         oldHouseInfoMapper.insert(info);
         LOGGER.info("保存二手房交易数据");
+        LOGGER.info(info);
     }
 }

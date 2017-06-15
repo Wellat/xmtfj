@@ -10,9 +10,9 @@ var option_map = {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} (套)"
     },
-    dataRange: {
+    visualMap: {
         min: 0,
-        // max: 2500,
+        max: 500,
         x: 'left',
         y: 'bottom',
         text:['高','低'],           // 文本，默认为数值文本
@@ -75,8 +75,7 @@ var option_pie = {
 
 
 function loadChartOut(limit) {
-    $.getJSON('/index/spfp/'+limit, function (data) {
-        //上面这个url是重点，组成为：项目名/过滤前缀/Controller中mapping值，当页面加载此js时，它会向后台取数据
+    $.getJSON('/xmtfj/index/spfp/'+limit, function (data) {
         if (data.state) {
             chart_map.showLoading({text: '正在努力的读取数据中...'});
             chart_pie.showLoading({text: '正在努力的读取数据中...'});

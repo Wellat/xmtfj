@@ -12,53 +12,59 @@
           http://www.springframework.org/schema/context 
           http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- quartz持久化存储 <bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> 
-		<property name="dataSource"> <ref bean="quartzDataSource" /> </property> 
-		<property name="applicationContextSchedulerContextKey" value="applicationContext" 
-		/> <property name="quartzProperties"> <props> <prop key="org.quartz.scheduler.instanceName">CRMscheduler</prop> 
-		<prop key="org.quartz.scheduler.instanceId">AUTO</prop> <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop> 
-		<prop key="org.quartz.threadPool.threadCount">30</prop> <prop key="org.quartz.threadPool.threadPriority">5</prop> 
-		<prop key="org.quartz.jobStore.misfireThreshold">120000</prop> <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop> 
-		<prop key="org.quartz.jobStore.isClustered">true</prop> <prop key="org.quartz.jobStore.clusterCheckinInterval">15000</prop> 
-		<prop key="org.quartz.jobStore.maxMisfiresToHandleAtATime">1</prop> <prop 
-		key="org.quartz.jobStore.tablePrefix">QRTZ_</prop> <prop key="org.quartz.jobStore.dataSource">quartzDataSource</prop> 
-		</props> </property> </bean> -->
+    <!-- quartz-2.x的配置 -->
+    <bean name="startQuartz" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!--每日更新-->
+                <ref bean="attentionTrigger" />
+                <!--十日更新-->
+                <ref bean="tenDayTrigger" />
+            </list>
+        </property>
+    </bean>
+    <bean id="attentionTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="attentionDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0 45 23 1/1 * ?</value>
+        </property>
+    </bean>
 
-	<!-- quartz-2.x的配置 -->
-	<bean name="startQuartz" lazy-init="false" autowire="no"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<!-- 关注小区,定时更新数据库 -->
-				<ref bean="attentionTrigger" />
-				<!-- <ref bean="deadlineTrigger" /> -->
-				<!-- <ref bean="downtimesTrigger" /> -->
-				<!-- <ref bean="customTaskInvalidTimeTrigger" /> -->
-				<!-- <ref bean="saveCacheUserClientDataTrigger" /> -->
-				<!-- <ref bean="updateTaskDisplayTrigger" /> -->
-			</list>
-		</property>
-	</bean>
-	<bean id="attentionTrigger"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail">
-			<ref bean="attentionDetail" />
-		</property>
-		<property name="cronExpression">
-			<value>0/10 * * * * ?</value>
-		</property>
-	</bean>
-	<!-- 调度的配置结束 -->
+    <bean id="tenDayTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="tenDayDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0 45 23 2/10 * ?</value>
+        </property>
+    </bean>
+    <!-- 调度的配置结束 -->
 
-	<!-- job的配置开始 -->
-	<bean id="attentionDetail"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="attentionCounter" />
-		</property>
-		<property name="targetMethod">
-			<value>saveToDB</value>
-		</property>
-	</bean>
-	<!-- job的配置结束 -->
+    <!-- job的配置开始 -->
+    <bean id="attentionDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="spiderMain" />
+        </property>
+        <property name="targetMethod">
+            <value>afterPropertiesSet</value>
+        </property>
+    </bean>
+
+    <bean id="tenDayDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="spiderMain" />
+        </property>
+        <property name="targetMethod">
+            <value>tenDay</value>
+        </property>
+    </bean>
+    <!-- job的配置结束 -->
 </beans>
+

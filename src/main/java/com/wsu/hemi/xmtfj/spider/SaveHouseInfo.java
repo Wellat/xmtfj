@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  */
 @Service("saveHouseInfo")
 public class SaveHouseInfo implements Pipeline<HouseInfos> {
-    private static final Logger LOGGER = Logger.getLogger(SaveTransactionInfo.class);
+    private static final Logger LOGGER = Logger.getLogger(SaveHouseInfo.class);
 
     @Autowired
     HouseInfoMapper houseInfoMapper;
@@ -64,5 +64,6 @@ public class SaveHouseInfo implements Pipeline<HouseInfos> {
 
         houseInfoMapper.insert(info);
         LOGGER.info("保存全市楼盘信息");
+        LOGGER.info(info);
     }
 }

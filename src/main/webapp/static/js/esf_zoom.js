@@ -1,19 +1,5 @@
 var chart31 = null;
 
-// var base = +new Date(1968, 9, 3);
-// var oneDay = 24 * 3600 * 1000;
-
-
-// var data = [Math.random() * 300];
-// var data2 = [Math.random() * 300+50];
-
-// for (var i = 1; i < 200; i++) {
-//     var now = new Date(base += oneDay);
-//     date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-//     data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-//     data2.push(Math.round((Math.random() - 0.5) * 20 + data2[i - 1]));
-// }
-
 option31 = {
     tooltip: {
         trigger: 'axis',
@@ -31,13 +17,11 @@ option31 = {
     },
     xAxis: {
         type: 'category',
-        // data:['2017/06/12', '2017/06/09', '2017/06/08'],
         boundaryGap: false
     },
     yAxis: {
         name: '套数',
         type: 'value'
-        // boundaryGap: [0, '100%']
     },
     dataZoom: [{
         show: true,
@@ -75,6 +59,7 @@ option31 = {
                     }])
                 }
             }
+
         },
         {
             name:'成交总套数',
@@ -103,8 +88,7 @@ option31 = {
 };
 
 function loadEsf() {
-    $.getJSON('/index/esf', function (data) {
-        //上面这个url是重点，组成为：项目名/过滤前缀/Controller中mapping值，当页面加载此js时，它会向后台取数据
+    $.getJSON('/xmtfj/index/esf', function (data) {
         if (data.state) {
             chart31.showLoading({text: '正在努力的读取数据中...'});
 

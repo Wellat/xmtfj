@@ -54,6 +54,7 @@ public class SaveTransactionInfo implements Pipeline<Transaction> {
             info.setDate(date.getTime());
 
             infoMapper.insert(info);
+            LOGGER.info(info);
         }
         LOGGER.info("交易数据保存成功");
     }
